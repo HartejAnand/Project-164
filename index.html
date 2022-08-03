@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paintball</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>   
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="./shoot.js"></script>
+    <script src="./gameObject.js"></script>
+    <script src="//unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js" target="_blank"></script>
+    
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>    
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>    
+  </head>
+  <body>
+    <a-scene id="scene" inspector-plugin-recast>
+      <a-entity id="navigation-mesh" position="0 -1 0" gltf-model="#collider" visible="false" nav-mesh>
+      </a-entity>
+    <a-assets> <a-asset-item id="collider" src="./navmesh.gltf"> </a-assets>
+
+      <!--Assets-->
+      <a-assets>
+          <a-asset-item 
+            id = "shooter",
+            src = "./Paintball gun.glb"
+          >
+        </a-asset-item>
+      </a-assets>
+
+      <a-entity id = "environment" environment = "preset: poison; skyType: gradient; lighting: point"></a-entity>
+      
+      <a-entity light="type: ambient; color: yellow; intensity:0.5"></a-entity>
+
+      <a-entity movement-controls = "speed: 0.2; constrainToNavMesh: true" position = "0 0 0">
+        <!--Camera and Cursor-->
+        <a-entity
+          id="camera"
+          camera
+          position="0 1.6 0"
+          wasd-controls
+          look-controls="pointerLockEnabled: true"        
+        >
+        
+          <a-entity
+            id = "weapon"
+            gltf-model = "#shooter"
+            position = "0.2 -1 -0.1"
+            rotation = "180 90 180"
+            scale = "0.02 0.02 0.02"
+          ></a-entity>
+        </a-entity>
+
+        <a-cursor color = "black"></a-cursor>        
+      </a-entity>
+
+      <!--Bullets-->
+      <a-entity bullets></a-entity>
+      <a-entity id="navigation-mesh" gltf-model="#collider" visible="true" nav-mesh> </a-entity>
+
+      <!--Game Objects-->
+      <a-entity ></a-entity>
+      
+      <!--Ground-->
+      <a-plane
+        id="ground"
+        repeat="5 5"
+        position="0 1 0"
+        rotation="-90 0 0"
+        height="200"
+        width="200"
+        color="#FFFFFF"
+        static-body
+        visible="false"
+      >
+      </a-plane>
+
+      <a-entity>
+        <a-box src="./box.png" id="wall1" material="color: " geometry="height: 2.5; width: 25"
+          position="8 1.25 -16" rotation="0 45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall2" material="color: #d7b237" geometry="height: 2.5; width: 5"
+          position="10 1.25 -5" rotation="0 0 0" static-body visible="true">
+        </a-box>
+    
+        <a-box src="./box.png" id="wall3" material="color: #82c530" geometry="height: 2.5; width: 25"
+          position="-11 1.25 -20" rotation="0 -45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall4" material="color: #118d6e" geometry="height: 2.5; width: 10"
+          position="-22 1.25 -14" rotation="0 80 0" static-body visible="true">
+          </a-box>
+  
+        <a-box src="./box.png" id="wall5" material="color: #dd472c" geometry="height: 2.5; width: 25"
+          position="-2 1.25 -17" rotation="0 45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall6" geometry="height: 2.5; width: 15" material="color: #97281c"
+          position="11 1.25 -13" rotation="0 -45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall7" material="color: #5d1b6f" geometry="height: 2.5; width: 10"
+          position="-18 1.25 -5" rotation="0 0 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall8" material="color: #56c0c8" geometry="height: 2.5; width: 5"
+          position="-8 1.25 -5" rotation="0 0 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall9" material="color: #141a29" geometry="width: 10; height: 2.5"
+          position="0 1.25 -5" rotation="0 0 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall10" material="color: #dd4808" geometry="height: 2.5; width: 10"
+          position="19 1.25 -5" rotation="0 0 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall11" material="color: #18cd58" geometry="height: 20; width: 5"
+          position="-5 3 -36" rotation="-70 -90 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall12" material="color: #ed3535" geometry="height: 2.5; width: 30"
+          position="11 1.25 -23" rotation="0 -45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall13" material="color: #5d1b6f" geometry="height: 2.5; width: 25"
+          position="-5 1.25 -25" rotation="0 45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall14" material="color: #d7b237" geometry="width: 15; height: 2.5"
+          position="-16 1.25 -14" rotation="0 -45 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall15" geometry="height: 2.5; width: 5" material="color: #f335a4"
+          position="-22 1.25 -26" rotation="0 0 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall16" material="color: #18cd58" geometry="width: 20; height: 5"
+          position="13 6 -36" rotation="-90 0 0" static-body visible="true">
+        </a-box>
+  
+        <a-box src="./box.png" id="wall17" material="color: #18cd58" geometry="height: 10; width: 5"
+          position="20 3 -30" rotation="-50 0 0" static-body visible="true">
+        </a-box>
+        
+        <a-box src="./box.png" id="wall18" material="color: #18cd58" geometry="height: 100; width: 5"
+          position="10 3 -20" rotation="-80 40 0" static-body visible="true">
+        </a-box>
+    </a-scene>
+  </body>
+</html>
